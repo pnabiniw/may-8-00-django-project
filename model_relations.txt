@@ -1,0 +1,19 @@
+There are three types of table relations
+1. One-to-One relation
+2. One-to-Many relation (Many-to-One)
+3. Many-to-Many Relation
+
+# In such table relations the object of one table is referred in the other table using a unique
+id which is also called as Foreign Key
+
+
+Related Names
+# Related names are the names (string) used in the model relations in django.
+# These related names are used in the reverse relation. Lets take an example
+
+    There is a "Classroom" model
+    There is another "Student" model which has "Classroom" as a ForeignKey
+
+    Now to access data of classroom from student object, it is a forward relation.
+    But to access data of student from classroom object, it is a reverse relation and
+    we can use related_names for this
