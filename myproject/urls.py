@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("form/", include("form.urls")),
     path("crud/", include("crud.urls")),
+    path("classbased/", include("classbased.urls")),
     path("", include("myapp.urls")),
 ]
 

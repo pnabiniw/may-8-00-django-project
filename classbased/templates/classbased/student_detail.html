@@ -1,0 +1,17 @@
+{% extends "form/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div style="margin-top: 30px">
+        <img src="{{ object.profile_picture.url }}" style="height: 200px; width: 200px">
+        <br>
+        Name:{{ student.name }}<br>
+        Age: {{ object.age }}<br>
+        Department: {{ object.department }} <br>
+        Classroom: {{ object.classroom.name }}<br>
+        Address: {{ object.studentprofile.address }} <br>
+        Phone Number: {{ object.studentprofile.phone_number }} <br>
+        Email: {{ object.studentprofile.email }}<br>
+    </div>
+{% endblock %}

@@ -67,3 +67,30 @@ def student_delete(request, id):
         return redirect("crud_home")
     context = {"title": "Delete Student", "student": Student.objects.get(id=id)}
     return render(request, "crud/student_delete.html", context=context)
+
+
+def student_update(request, id):
+    if request.method == "POST":
+        data = request.POST.dict()
+        data.pop("csrfmiddlewaretoken")
+        class_obj = ClassRoom.objects.get(name=data.pop('classroom'))
+        profile_data = {}
+        profile_fields = ["address", "email", "phone_number"]
+        for k, v in data.items():
+            if k in profile_fields:
+                profile_data.update({k:v})
+        data = {k:v for k, v in data.items() if k not in profile_fields}
+        pp = request.FILES.get("profile_picture")
+        student = Student.objects.filter(id=id)
+        student.update(classroom=class_obj, **data)
+        s = student[0]
+        s.profile_picture = pp
+        s.save()
+        StudentProfile.objects.filter(student_id=id).update(**profile_data)
+        return redirect('crud_home')
+    context = {
+        "title": "Update Student",
+        "student": Student.objects.get(id=id),
+        "classrooms": ClassRoom.objects.all()
+    }
+    return render(request, "crud/student_update.html", context=context)
