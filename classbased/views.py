@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from myapp.models import ClassRoom, Student
-from .forms import ClassRoomForm
+from .forms import ClassRoomForm, StudentForm, StudentModelForm, ClassRoomModelForm
 
 
 class FirstView(View):
@@ -52,9 +53,11 @@ class StudentDetailView(DetailView):
     template_name = "classbased/student_detail.html"
 
 
-
 class ClassRoomFormView(CreateView):
-    pass
+    model = ClassRoom
+    template_name = "classbased/classroom_form.html"
+    form_class = ClassRoomModelForm
+    success_url = reverse_lazy("classroom_django_form")
 
 
 def classroom_form(request):
@@ -72,3 +75,34 @@ def classroom_form(request):
         "classrooms": ClassRoom.objects.all()
     }
     return render(request, "classbased/classroom_form.html", context=context)
+
+
+def student_form(request):
+    if request.method == "POST":
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data.get("name")
+            age = form.cleaned_data.get("age")
+            department = form.cleaned_data.get("department")
+            Student.objects.create(name=name, age=age, department=department)
+            return redirect("student_form")
+    context = {
+        "title": "Add Student",
+        "form": StudentForm(),
+        "students": Student.objects.all()
+    }
+    return render(request, "classbased/student_form.html", context=context)
+
+
+def student_model_form(request):
+    if request.method == "POST":
+        form = StudentModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("student_model_form")
+    context = {
+        "title": "Add Student",
+        "form": StudentModelForm(),
+        "students": Student.objects.all()
+    }
+    return render(request, "classbased/student_model_form.html", context=context)
