@@ -2,7 +2,11 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
 from myapp.models import ClassRoom, Student
+
 from .forms import ClassRoomForm, StudentForm, StudentModelForm, ClassRoomModelForm
 
 
@@ -40,6 +44,7 @@ class ClassRoomTemplateView(TemplateView):
         return context
 
 
+@method_decorator(login_required, name="dispatch")
 class StudentListView(ListView):
     # model = Student
     template_name = "classbased/student.html"

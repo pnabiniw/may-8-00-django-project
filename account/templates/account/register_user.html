@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+<div style="margin-top: 30px">
+    <h1>{{ title }}</h1>
+    <form method="post" action="{% url 'register_user' %}">
+        {% csrf_token %}
+        <div>
+            <label>Username</label>
+            <input type="text" name="username">
+        </div><br>
+        <div>
+            <label>Password</label>
+            <input type="password" name="password">
+        </div><br>
+        <div>
+            <label>Repeat Password</label>
+            <input type="password" name="repeat_password">
+        </div><br>
+        <div>
+            <label>Email</label>
+            <input type="email" name="email">
+        </div><br>
+        <div>
+            <label>First Name</label>
+            <input type="text" name="first_name">
+        </div><br>
+        <div>
+            <label>Last Name</label>
+            <input type="text" name="last_name">
+        </div><br>
+    <button type="submit">Submit</button>
+    </form>
+</div>
+</body>
+</html>
