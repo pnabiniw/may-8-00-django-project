@@ -61,3 +61,7 @@ class StudentViewSet(ModelViewSet):
 class StudentProfileViewSet(ModelViewSet):
     queryset = StudentProfile.objects.all()
     serializer_class = StudentProfileSerializer
+
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.filters import SearchFilter
+from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
