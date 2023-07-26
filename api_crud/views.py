@@ -1,9 +1,11 @@
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.decorators import action
 from rest_framework import status
+from drf_yasg.utils import swagger_auto_schema
 from myapp.models import ClassRoom, Student, StudentProfile
 from api.serializers import ClassRoomModelSerializer, StudentModelSerializer, StudentProfileSerializer
 from .permissions import IsSuperAdmin
@@ -58,9 +60,12 @@ class StudentViewSet(ModelViewSet):
             }, status=status.HTTP_404_NOT_FOUND)
 
 
+@method_decorator(swagger_auto_schema(responses={200: "Ok", "400": "Bad Request", 301: "Redirection"}), 'list')
+@method_decorator(swagger_auto_schema(responses={201: "Created", "400": "Bad Request"}), 'create')
 class StudentProfileViewSet(ModelViewSet):
     queryset = StudentProfile.objects.all()
     serializer_class = StudentProfileSerializer
+
 
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.filters import SearchFilter

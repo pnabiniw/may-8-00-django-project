@@ -28,7 +28,8 @@ INSTALLED_APPS = [
 ]
 
 LOCAL_APPS = ["myapp", "form", "crud", "classbased", 'account', "api", "api_crud"]
-THIRD_PARTY_APPS = ["django_extensions", "rest_framework", "rest_framework.authtoken"]
+THIRD_PARTY_APPS = ["django_extensions", "rest_framework",
+                    "rest_framework.authtoken", 'drf_yasg']
 INSTALLED_APPS += LOCAL_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
